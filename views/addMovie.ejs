@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Movie</title>
+    </head>
+    <body>
+        <h1>Add New Movie</h1>
+
+        <% if (errors && errors.length > 0) { %>
+        <div style="color: red">
+            <h3>Errors:</h3>
+            <% errors.forEach(error => { %>
+            <p><%= error %></p>
+            <% }) %>
+        </div>
+        <% } %>
+
+        <form method="POST" action="/movies/add">
+            <div>
+                <label>Movie Name:</label>
+                <input type="text" name="name" />
+            </div>
+
+            <div>
+                <label>Description:</label>
+                <textarea name="description"></textarea>
+            </div>
+
+            <div>
+                <label>Year:</label>
+                <input type="number" name="year" />
+            </div>
+
+            <div>
+                <label>Genres (comma separated):</label>
+                <input
+                    type="text"
+                    name="genres"
+                    placeholder="Action, Drama, Comedy"
+                />
+            </div>
+
+            <div>
+                <label>Rating (0-10):</label>
+                <input
+                    type="number"
+                    name="rating"
+                    step="0.1"
+                    min="0"
+                    max="10"
+                />
+            </div>
+
+            <div>
+                <label>Director:</label>
+                <input type="text" name="director" />
+            </div>
+
+            <button type="submit">Add Movie</button>
+        </form>
+
+        <a href="/">Home</a>
+    </body>
+</html>
