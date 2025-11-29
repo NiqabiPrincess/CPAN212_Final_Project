@@ -3,12 +3,16 @@ const app = express();
 const PORT = 3000;
 const mongoose = require('mongoose');
 const DB_URI = 'mongodb+srv://dbUser:dbUser@cluster0.1oqhg7m.mongodb.net/?appName=Cluster0';
+
 const movieRouter = require('./routes/movies');
+const userValidationRouter = require('./routes/userValidation');
 
 app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
+app.use('/', userValidationRouter);
 app.use('/movies', movieRouter);
 
 app.get('/', (req, res) => {
@@ -20,5 +24,5 @@ app.listen(PORT, () => {
 });
 
 mongoose.connect(DB_URI)
-    .then(() => console.log('✅ MongoDB connected successfully.'))
-    .catch(err => console.error('❌ MongoDB connection error:', err));
+    .then(() => console.log('MongoDB connected successfully.'))
+    .catch(err => console.error('MongoDB connection error:', err));

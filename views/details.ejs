@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movie Details</title>
+  </head>
+  <body>
+
+    <% if (!movie) { %>
+      <h1>Movie not found</h1>
+      <a href="/movies">Back to Movies</a>
+    <% } else { %>
+
+      <h1><%= movie.name %></h1>
+
+      <p><strong>Description:</strong> <%= movie.description %></p>
+      <p><strong>Year:</strong> <%= movie.year %></p>
+      <p><strong>Genres:</strong> <%= movie.genres %></p>
+      <p><strong>Rating:</strong> <%= movie.rating %></p>
+      <p><strong>Director:</strong> <%= movie.director %></p>
+
+      <br>
+      <a href="/movies/<%= movie._id %>/edit">Edit Movie</a>
+      <br><br>
+      <a href="/movies">Back to Movies</a>
+      <br>
+      <a href="/">Home</a>
+
+    <% } %>
+
+  </body>
+</html>
