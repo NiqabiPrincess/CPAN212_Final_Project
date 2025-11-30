@@ -1,57 +1,37 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Edit Movie</title>
-  </head>
-  <body>
+<%- include('partials/header', {title: 'Edit Movie'}) %>
 
-    <h1>Edit Movie</h1>
+<h1>Edit Movie</h1>
 
-    <% if (errors && errors.length > 0) { %>
-      <div style="color: rgb(240, 102, 102)">
-        <h3>Errors:</h3>
-        <% errors.forEach(error => { %>
-          <p><%= error %></p>
-        <% }) %>
-      </div>
-    <% } %>
+<% if (errors && errors.length > 0) { %>
+    <% errors.forEach(err => { %>
+        <p style="color:red;"><%= err %></p>
+    <% }) %>
+<% } %>
 
-    <form method="POST" action="/movies/<%= movie._id %>/edit">
-      <div>
-        <label>Movie Name:</label>
-        <input type="text" name="name" value="<%= movie.name %>" />
-      </div>
+<form method="POST" action="/movies/<%= movie._id %>/edit">
 
-      <div>
-        <label>Description:</label>
-        <textarea name="description"><%= movie.description %></textarea>
-      </div>
+    <label>Movie Name:</label>
+    <input type="text" name="name" value="<%= movie.name %>">
 
-      <div>
-        <label>Year:</label>
-        <input type="number" name="year" value="<%= movie.year %>" />
-      </div>
+    <label>Description:</label>
+    <textarea name="description"><%= movie.description %></textarea>
 
-      <div>
-        <label>Genres (comma separated):</label>
-        <input type="text" name="genres" value="<%= movie.genres %>" />
-      </div>
+    <label>Year:</label>
+    <input type="number" name="year" value="<%= movie.year %>">
 
-      <div>
-        <label>Rating (0-10):</label>
-        <input type="number" name="rating" value="<%= movie.rating %>" />
-      </div>
+    <label>Genres (comma separated):</label>
+    <input type="text" name="genres" value="<%= movie.genres %>">
 
-      <div>
-        <label>Director:</label>
-        <input type="text" name="director" value="<%= movie.director %>" />
-      </div>
+    <label>Rating (0-10):</label>
+    <input type="number" name="rating" value="<%= movie.rating %>">
 
-      <button type="submit">Save Changes</button>
-    </form>
+    <label>Director:</label>
+    <input type="text" name="director" value="<%= movie.director %>">
 
-    <br>
-    <a href="/movies/<%= movie._id %>">Cancel</a>
+    <button type="submit">Save Changes</button>
+</form>
 
-  </body>
-</html>
+<br>
+<a href="/movies/<%= movie._id %>">Cancel</a>
+
+<%- include('partials/footer') %>
