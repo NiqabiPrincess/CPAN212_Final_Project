@@ -1,0 +1,25 @@
+<%- include('partials/header', {title: 'Register'}) %>
+
+<h1>Register</h1>
+
+<% if (errors && errors.length > 0) { %>
+    <% errors.forEach(err => { %>
+        <p style="color:red;"><%= err %></p>
+    <% }) %>
+<% } %>
+
+<form action="/register" method="POST">
+
+    <label>Email:</label>
+    <input type="text" name="email">
+
+    <label>Password:</label>
+    <input type="password" name="password">
+
+    <button type="submit">Register</button>
+</form>
+
+<br>
+<a href="/login">Already have an account?</a>
+
+<%- include('partials/footer') %>

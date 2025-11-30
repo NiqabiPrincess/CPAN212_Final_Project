@@ -2,9 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Registration = require("../models/Registration");
 
-// ----------------------
-// REGISTER ROUTES
-// ----------------------
+
 router.get("/register", (req, res) => {
     res.render("register", { errors: null });
 });
@@ -35,9 +33,6 @@ router.post("/register", async (req, res) => {
     res.redirect("/login");
 });
 
-// ----------------------
-// LOGIN ROUTES
-// ----------------------
 router.get("/login", (req, res) => {
     res.render("login", { errors: null });
 });
