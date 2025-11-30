@@ -3,11 +3,12 @@ const router = express.Router();
 const Movie = require("../models/Movie");
 
 router.get("/addMovie", (req, res) => {
-    res.render("/addMovie", {
+    res.render("addMovie", {
         errors: null,
         movieData: null,
     });
 });
+
 
 router.post("/add", async (req, res) => {
     const { name, description, year, genres, rating, director } = req.body;
