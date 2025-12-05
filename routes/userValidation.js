@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Registration = require("../models/Registration");
 
-
 router.get("/register", (req, res) => {
     res.render("register", { errors: null });
 });
@@ -66,5 +65,14 @@ router.post("/login", async (req, res) => {
     res.redirect("/");
 });
 
-// Export router
+// logout
+router.get("/logout", (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.send("Error logging out");
+        }
+        res.redirect("/login");
+    });
+});
+
 module.exports = router;

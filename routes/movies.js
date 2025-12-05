@@ -2,15 +2,22 @@ const express = require("express");
 const router = express.Router();
 const Movie = require("../models/Movie");
 
-router.get("/addMovie", (req, res) => {
+// only allow logged in users
+function ensureLoggedIn(req, res, next) {
+    if (!req.session || !req.session.user) {
+        return res.redirect("/login");
+    }
+    next();
+}
+
+router.get("/addMovie", ensureLoggedIn, (req, res) => {
     res.render("addMovie", {
         errors: null,
         movieData: null,
     });
 });
 
-
-router.post("/add", async (req, res) => {
+router.post("/add", ensureLoggedIn, async (req, res) => {
     const { name, description, year, genres, rating, director } = req.body;
     const errors = [];
 
@@ -32,7 +39,7 @@ router.post("/add", async (req, res) => {
         genres: genres.split(",").map((g) => g.trim()),
         rating,
         director,
-        creatorId: "temp-user",
+        creatorId: req.session.user.id
     });
 
     await newMovie.save();
@@ -59,6 +66,14 @@ router.get("/:id/edit", async (req, res) => {
             return res.send("Movie not found");
         }
 
+        if (!req.session || !req.session.user) {
+            return res.redirect("/login");
+        }
+
+        if (movie.creatorId.toString() !== req.session.user.id.toString()) {
+            return res.status(403).send("You are not allowed to edit this movie");
+        }
+
         res.render("edit", { movie, errors: null });
     } catch (err) {
         res.send("Error fetching movie");
@@ -76,14 +91,28 @@ router.post("/:id/edit", async (req, res) => {
     if (!rating) errors.push("Rating is required");
     if (!director) errors.push("Director is required");
 
-    if (errors.length > 0) {
-        return res.render("edit", {
-            movie: { _id: req.params.id, ...req.body },
-            errors,
-        });
-    }
-
     try {
+        const movie = await Movie.findById(req.params.id);
+
+        if (!movie) {
+            return res.send("Movie not found");
+        }
+
+        if (!req.session || !req.session.user) {
+            return res.redirect("/login");
+        }
+
+        if (movie.creatorId.toString() !== req.session.user.id.toString()) {
+            return res.status(403).send("You are not allowed to edit this movie");
+        }
+
+        if (errors.length > 0) {
+            return res.render("edit", {
+                movie: { _id: req.params.id, ...req.body },
+                errors,
+            });
+        }
+
         await Movie.findByIdAndUpdate(req.params.id, {
             name,
             description,
@@ -98,7 +127,6 @@ router.post("/:id/edit", async (req, res) => {
         res.send("Error updating movie");
     }
 });
-
 
 router.get("/", (req, res) => {
     res.send("Movie Index Page - List all movies here.");
