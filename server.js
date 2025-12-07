@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,10 +18,10 @@ app.use(session({
     cookie: {},
 }));
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
-app.set('views', 'views');
+app.set('views', path.join(__dirname, 'views'));
 app.use('/', userValidationRouter);
 app.use('/movies', movieRouter);
 
