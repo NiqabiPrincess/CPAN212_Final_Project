@@ -1,0 +1,40 @@
+<%- include('partials/header', { title:'All Movies' }) %>
+
+<main class="container">
+    <h1>All Movies</h1>
+
+    <% if (movies && movies.length > 0) { %>
+        <ul class="movie-list">
+            <% movies.forEach(function (movie) { %>
+                <li>
+                    <strong>
+                        <a href="/movies/<%= movie._id %>"><%= movie.name %></a>
+                    </strong>
+                    <% if (movie.year) { %> - <%= movie.year %> <% } %><br />
+
+                    <% if (movie.genres && movie.genres.length) { %>
+                        Genres: <%= movie.genres.join(", ") %><br />
+                    <% } %>
+
+                    <% if (movie.rating) { %>
+                        Rating: <%= movie.rating %><br />
+                    <% } %>
+
+                    <% if (movie.director) { %>
+                        Director: <%= movie.director %><br />
+                    <% } %>
+
+                    <a href="/movies/<%= movie._id %>/edit">Edit</a>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No movies found.</p>
+    <% } %>
+
+    <p class="auth-link">
+        <a href="/">Home</a>
+    </p>
+</main>
+
+<%- include('partials/footer') %>

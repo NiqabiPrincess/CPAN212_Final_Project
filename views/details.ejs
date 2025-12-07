@@ -1,33 +1,30 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Movie Details</title>
-  </head>
-  <body>
+<%- include('partials/header', { title: movie ? movie.name : 'Movie Details' }) %>
 
-    <% if (!movie) { %>
-      <h1>Movie not found</h1>
-      <a href="/movies">Back to Movies</a>
+<main class="container">
+  <% if (!movie) { %>
+    <h1>Movie not found</h1>
+    <p class="detail-links">
+      <a href="/movies">Back to Movies</a> |
+      <a href="/">Home</a>
+    </p>
     <% } else { %>
-
       <h1><%= movie.name %></h1>
 
-      <p><strong>Description:</strong> <%= movie.description %></p>
-      <p><strong>Year:</strong> <%= movie.year %></p>
-      <p><strong>Genres:</strong> <%= movie.genres %></p>
-      <p><strong>Rating:</strong> <%= movie.rating %></p>
-      <p><strong>Director:</strong> <%= movie.director %></p>
+      <div class="movie-details">
+        <p><strong>Description:</strong> <%= movie.description %></p>
+        <p><strong>Year:</strong> <%= movie.year %></p>
+        <p><strong>Genres:</strong> <%= movie.genres %></p>
+        <p><strong>Rating:</strong> <%= movie.rating %></p>
+        <p><strong>Director:</strong> <%= movie.director %></p>
+      </div>
 
-      <br>
-      <a href="/movies/<%= movie._id %>/edit">Edit Movie</a>
-      <br><br>
-      <a href="/movies">Back to Movies</a>
-      <br>
-      <a href="/">Home</a>
-      <a href="/movies/<%= movie._id %>/edit">Edit Movie</a>
-
-
+        <p class="detail-links">
+          <a href="/movies/<%= movie._id %>/edit">Edit</a>
+          |
+          <a href="/movies">Back to List of Movies</a>
+          |
+          <a href="/">Home</a>
+        </p>
     <% } %>
-
-  </body>
-</html>
+</main>
+<%- include('partials/footer') %>

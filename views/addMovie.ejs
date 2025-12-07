@@ -1,64 +1,64 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Add Movie</title>
-    </head>
-    <body>
-        <h1>Add New Movie</h1>
+<%- include('partials/header', { title: 'Add New Movie' }) %>
 
-        <% if (errors && errors.length > 0) { %>
-        <div style="color: red">
-            <h3>Errors:</h3>
+<main class="container">
+    <h1>Add New Movies</h1>
+
+    <% if (errors && errors.length > 0) { %>
+        <div class="error-messages">
             <% errors.forEach(error => { %>
             <p><%= error %></p>
             <% }) %>
         </div>
-        <% } %>
+    <% } %>
 
-        <form method="POST" action="/movies/add">
-            <div>
-                <label>Movie Name:</label>
-                <input type="text" name="name" />
-            </div>
+    <form class="movie-form" method="POST" action="/movies/add">
+        <div class="form-row">
+            <label for="name">Movie Name:</label>
+            <input type="text" id="name" name="name" />
+        </div>
 
-            <div>
-                <label>Description:</label>
-                <textarea name="description"></textarea>
-            </div>
+        <div class="form-row">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="6"></textarea>
+        </div>
 
-            <div>
-                <label>Year:</label>
-                <input type="number" name="year" />
-            </div>
+        <div class="form-row">
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" />
+        </div>
 
-            <div>
-                <label>Genres (comma separated):</label>
+        <div class="form-row">
+            <label for="genres">Genre (comma to separate):</label>
                 <input
                     type="text"
                     name="genres"
                     placeholder="Action, Drama, Comedy"
                 />
-            </div>
+        </div>
 
-            <div>
-                <label>Rating (0-10):</label>
+        <div class="form-row">
+            <label for="rating">Rating (0-10):</label>
                 <input
                     type="number"
+                    id="rating"
                     name="rating"
                     step="0.1"
                     min="0"
                     max="10"
                 />
-            </div>
+        </div>
 
-            <div>
-                <label>Director:</label>
-                <input type="text" name="director" />
-            </div>
-
+        <div class="form-row">
+            <label for="director">Director:</label>
+            <input type="text" id="director" name="director" />
+        </div>
+        <br>
             <button type="submit">Add Movie</button>
         </form>
+        <br>
+        <p class="auth-link">
+            <a href="/">Home</a>
+        </p>
+</main>
+<%- include('partials/footer') %>
 
-        <a href="/">Home</a>
-    </body>
-</html>

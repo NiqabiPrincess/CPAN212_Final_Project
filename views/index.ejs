@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>Movie Database</title>
+        <meta charset="UTF-8" />
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
-        <h1>Welcome to Movie Database</h1>
+        <header class="navbar">
+            <div class="logo">Movie Database</div>
+            <nav>
+                <a href="/movies/addMovie">Add New Movie</a> |
+                <a href="/movies">View All Movies</a> |
+                <a href="/login">Login</a> |
+                <a href="/logout">Logout</a> |
+                <a href="/register">Register</a>
+            </nav>
+        </header>
+        
+        <main class="container">
+            <h1>Welcome to Movie Database</h1>
+            
+            <p>This is the home page for our movie database project.</p>
 
-        <nav>
-            <a href="/movies/addMovie">Add New Movie</a> |
-            <a href="/movies">View All Movies</a>
-            <a href="/login">Login</a> |
-            <a href="/logout">Logout</a> 
-            <a href="/register">Register</a>
-        </nav>
-
-        <p>This is the home page for our movie database project.</p>
+            <p>
+                Use the links above to navigate through our page - adding a new movie, viewing all movies or  log-in/register as a user.
+            </p>
+        </main>
     </body>
 </html>

@@ -1,37 +1,85 @@
 <%- include('partials/header', {title: 'Edit Movie'}) %>
 
-<h1>Edit Movie</h1>
+<main class="container">
+    <h1>Edit Movie</h1>
 
-<% if (errors && errors.length > 0) { %>
-    <% errors.forEach(err => { %>
-        <p style="color:red;"><%= err %></p>
-    <% }) %>
-<% } %>
+    <% if (errors && errors.length > 0) { %>
+        <div class="error-messages">
+            <% errors.forEach(function (err) { %>
+                <p><%= err %></p>
+            <% }); %>
+        </div>
+    <% } %>
 
-<form method="POST" action="/movies/<%= movie._id %>/edit">
+    <form class="movie-form" method="POST" action="/movies/<%= movie._id %>/edit">
+        <div class="form-row">
+            <label for="name">Movie Name:</label>
+            <input 
+                type="text"
+                id="name"
+                name="name"
+                value="<%= movie.name %>"
+            />
+        </div>
 
-    <label>Movie Name:</label>
-    <input type="text" name="name" value="<%= movie.name %>">
+        <div class="form-row">
+            <label for="description">Description:</label>
+            <textarea
+                id="description"
+                name="description"
+                rows="6"
+            ><%= movie.description %></textarea>
+        </div>
 
-    <label>Description:</label>
-    <textarea name="description"><%= movie.description %></textarea>
+        <div class="form-row">
+            <label for="year">Year:</label>
+            <input
+                type="number"
+                id="year"
+                name="year"
+                value="<%= movie.year %>"
+            />
+        </div>
 
-    <label>Year:</label>
-    <input type="number" name="year" value="<%= movie.year %>">
+        <div class="form-row">
+            <label for="genres">Genres (comma separated):</label>
+            <input
+                type="text"
+                id="genres"
+                name="genres"
+                value="<%= movie.genres && movie.genres.join ? movie.genres.join(', ') : movie.genres %>"
+            />
+        </div>
 
-    <label>Genres (comma separated):</label>
-    <input type="text" name="genres" value="<%= movie.genres %>">
+        <div class="form-row">
+            <label for="rating">Rating (0-10):</label>
+            <input
+                type="number"
+                id="rating"
+                name="rating"
+                step="0.1"
+                min="0"
+                max="10"
+                value="<%= movie.rating %>"
+            />
+        </div>
 
-    <label>Rating (0-10):</label>
-    <input type="number" name="rating" value="<%= movie.rating %>">
+        <div class="form-row">
+            <label for="director">Director:</label>
+            <input
+                type="text"
+                id="director"
+                name="director"
+                value="<%= movie.director %>"
+            />
+        </div>
 
-    <label>Director:</label>
-    <input type="text" name="director" value="<%= movie.director %>">
+        <button type="submit">Save Changes</button>
+    </form>
 
-    <button type="submit">Save Changes</button>
-</form>
-
-<br>
-<a href="/movies/<%= movie._id %>">Cancel</a>
+    <p class="auth-link">
+        <a href="/movies/<%= movie._id %>">Cancel</a>
+    </p>
+</main>
 
 <%- include('partials/footer') %>

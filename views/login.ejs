@@ -1,25 +1,33 @@
 <%- include('partials/header', {title: 'Login'}) %>
 
-<h1>Login</h1>
+<main class="container auth-form">
+    <h1>Login</h1>
 
-<% if (errors && errors.length > 0) { %>
-    <% errors.forEach(err => { %>
-        <p style="color:red;"><%= err %></p>
-    <% }) %>
-<% } %>
+    <% if (errors && errors.length > 0) { %>
+        <div class="error-messages">
+            <% errors.forEach(err => { %>
+                <p><%= err %></p>
+            <% }) %>
+        </div>
+    <% } %>
 
-<form method="POST" action="/login">
+    <form method="POST" action="/login">
+        <div class="form-row">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" />
+        </div>
 
-    <label>Email:</label>
-    <input type="text" name="email">
+        <div class="form-row">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" />
+        </div>
 
-    <label>Password:</label>
-    <input type="password" name="password">
-
-    <button type="submit">Login</button>
-</form>
-
-<br>
-<a href="/register">Don't have an account? Register</a>
+        <button type="submit">Log-in</button>
+    </form>
+    <br>
+    <p class="auth-link">
+        <a href="/register">Don't have an account? Register</a>
+    </p>
+</main>
 
 <%- include('partials/footer') %>

@@ -128,8 +128,14 @@ router.post("/:id/edit", async (req, res) => {
     }
 });
 
-router.get("/", (req, res) => {
-    res.send("Movie Index Page - List all movies here.");
+router.get("/", async (req, res) => {
+    try {
+        const movies = await Movie.find();
+        res.render("moviesIndex", {movies});
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error loading movies");
+    }
 });
 
 module.exports = router;

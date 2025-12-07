@@ -1,25 +1,32 @@
 <%- include('partials/header', {title: 'Register'}) %>
 
-<h1>Register</h1>
+<main class="container auth-form">
+    <h1>Register</h1>
+    <% if (errors && errors.length > 0) { %>
+        <div class="error-messages">
+            <% errors.forEach(err => { %>
+                <p><%= err %></p>
+            <% }) %>
+        </div>
+    <% } %>
 
-<% if (errors && errors.length > 0) { %>
-    <% errors.forEach(err => { %>
-        <p style="color:red;"><%= err %></p>
-    <% }) %>
-<% } %>
+    <form action="/register" method="POST">
+        <div class="form-row">
+            <label for="email">Email:</label>
+            <input type="text" name="email">
+        </div>
 
-<form action="/register" method="POST">
+        <div class="form-row">
+            <label>Password:</label>
+            <input type="password" name="password">
+        </div>
 
-    <label>Email:</label>
-    <input type="text" name="email">
-
-    <label>Password:</label>
-    <input type="password" name="password">
-
-    <button type="submit">Register</button>
-</form>
-
-<br>
-<a href="/login">Already have an account?</a>
+        <button type="submit">Register</button>
+    </form>
+    <br>
+    <p class="auth-link">
+        <a href="/login">Already have an account?</a>
+    </p>
+</main>
 
 <%- include('partials/footer') %>

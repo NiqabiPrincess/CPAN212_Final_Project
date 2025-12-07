@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
-const DB_URI = 'mongodb+srv://dbUser:dbUser@cluster0.1oqhg7m.mongodb.net/?appName=Cluster0';
+const DB_URI = process.env.MONGODB_URI || 'mongodb+srv://dbUser:dbUser@cluster0.1oqhg7m.mongodb.net/?appName=Cluster0';
 
 const movieRouter = require('./routes/movies');
 const userValidationRouter = require('./routes/userValidation');
@@ -16,6 +16,8 @@ app.use(session({
     saveUninitialized: true,
     cookie: {},
 }));
+
+app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
