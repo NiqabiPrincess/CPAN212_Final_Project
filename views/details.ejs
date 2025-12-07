@@ -25,6 +25,14 @@
           |
           <a href="/">Home</a>
         </p>
+
+        <form method="POST"
+            action="/movies/<%= movie._id %>/delete"
+            class="delete-form"
+        >
+          <button type="submit" class="delete-button">Delete Movie</button>
+      
+        </form>
     <% } %>
 </main>
 <%- include('partials/footer') %>

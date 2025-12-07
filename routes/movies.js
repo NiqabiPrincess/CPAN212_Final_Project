@@ -138,4 +138,24 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.post("/:id/delete", ensureLoggedIn, async(req, res) => {
+    try {
+        const movie = await Movie.findById(req.params.id);
+
+        if(!movie) {
+            return res.send("Movie not found");
+        }
+
+        if (movie.creatorId.toString() !== req.session.user.id.toString()) {
+            return res.status(403).send("You are not allowed to delete, must be signed in.");
+        }
+
+        await Movie.findByIdAndDelete(req.params.id);
+        res.redirect("/movies");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("error deleting movie.");
+    }
+});
+
 module.exports = router;

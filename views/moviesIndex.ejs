@@ -24,6 +24,8 @@
                         Director: <%= movie.director %><br />
                     <% } %>
 
+                    <a href="/movies/<%= movie._id %>">Details</a>
+                    |
                     <a href="/movies/<%= movie._id %>/edit">Edit</a>
                 </li>
             <% }); %>
